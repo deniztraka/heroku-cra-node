@@ -12,7 +12,6 @@ export default class MovieSearchComponent extends React.Component {
             movies: []
         };    
         
-        this.onKeyPress = this.onKeyPress.bind(this);
     }
     
     
