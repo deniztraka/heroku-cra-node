@@ -1,6 +1,5 @@
 import React from 'react';
-import {Image, Button } from 'react-bootstrap';
-import placeHolderImg from '../movieImgPlaceholder.png';
+import {Image } from 'react-bootstrap';
 
 export default class TrailerComponent extends React.Component {
     constructor(props){

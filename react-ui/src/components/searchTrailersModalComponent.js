@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, Modal, Button } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 import request from 'superagent';
 import Trailer from './trailerComponent';
 

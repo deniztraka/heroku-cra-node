@@ -1,8 +1,7 @@
 import React from 'react';
-import { Container, Button} from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import Movie from './movieComponent';
 import request from 'superagent';
-import SearchTrailersModalComponent from './searchTrailersModalComponent'
 
 export default class MovieListComponent extends React.Component {
     constructor(props){

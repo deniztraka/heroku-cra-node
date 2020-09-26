@@ -10,8 +10,7 @@ export default class MovieSearchComponent extends React.Component {
             inputValue : '',
             isFetching:false,
             movies: []
-        };    
-        
+        };            
     }
     
     
