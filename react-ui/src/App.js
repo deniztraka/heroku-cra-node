@@ -1,35 +1,25 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import {Jumbotron, Nav, Container, Row, Col, Navbar, Form, FormControl} from 'react-bootstrap';
-import logo from './logo.svg';
+import {Image, Jumbotron, Nav, Container, Form, FormControl} from 'react-bootstrap';
+import request from 'superagent';
+import placeHolderImg from './movieImgPlaceholder.png';
 import './App.css';
 
 function App() {
-  const [message, setMessage] = useState(null);
+  const [movies, setMovies] = useState(null);
   const [isFetching, setIsFetching] = useState(false);
-  const [url, setUrl] = useState('/api');
+  const [inputValue, setInputValue] = useState('');
 
-  const fetchData = useCallback(() => {
-    fetch(url)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`status ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(json => {
-        setMessage(json.message);
-        setIsFetching(false);
-      }).catch(e => {
-        setMessage(`API call failed: ${e}`);
-        setIsFetching(false);
-      })
-  }, [url]);
-
-  useEffect(() => {
+  const fetchMovies = async () => {   
+    console.log(inputValue); 
     setIsFetching(true);
-    fetchData();
-  }, [fetchData]);
+    const response = await request.get('/api/movies') 
+        .query('q='+inputValue)
+        .accept('application/json');
+       
+        setMovies(response.body); 
+        setIsFetching(false);         
+  };
 
   return (
     
@@ -40,24 +30,48 @@ function App() {
             <Container>
               <h1>Search for Movies, Trailers</h1>
               <p>
-                You can search for movies in this page.<br></br> Than you can search for it's trailer videos by clicking on each film.
+                You can search for movies in this page.<br></br> Then you can search for it's trailer videos by clicking on each film.
               </p>
             </Container>
           </Jumbotron>     
         </Container>    
       </header>
+
+      <p className="actionDescription">
+        {movies ? '':'« '}
+          <strong>
+            {isFetching ? 'preparing a super duper movie list related with your search phrase' : ( movies ? '':'start searching now!')}
+          </strong>
+        {movies ? '':' »'}            
+      </p>
       <Container bg="dark">  
         <Form> 
           <Nav className="justify-content-center" activeKey="/home">        
             <Nav.Item>
-              <FormControl type="text" placeholder="type some cool movie name here" className=" mr-sm-4" />
+              <FormControl value={inputValue} onChange={e => setInputValue(e.target.value)} type="text" placeholder="type some cool movie name here" className=" mr-sm-4" />
             </Nav.Item>
             <Nav.Item>
-              <Button variant="secondary" type="submit">Search</Button>
+              <Button variant="secondary" onClick={fetchMovies} >Search</Button>
             </Nav.Item>
           </Nav>
         </Form>             
-      </Container>      
+      </Container>   
+      <br></br>   
+      <Container bg="dark">  
+        <div className="movies">          
+          <ul className="movie-list" key="moveieList">
+            {movies && movies.length > 0 && movies.map((movie) => {
+              return (                
+                  <li className="movie" key={movie.id.toString()}>
+                    <Image src={movie.imageUrl ? movie.imageUrl : placeHolderImg} alt={movie.title} fluid />           
+                    <h3>{movie.title}</h3>   
+                    <p>{movie.year}</p>  
+                  </li>                
+              );
+            })}
+        </ul>
+        </div>
+      </Container> 
     </div>
   );
 

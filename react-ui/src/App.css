@@ -1,5 +1,6 @@
 body{
   background-color:#282c34;
+  color: gray
 }
 
 .App {
@@ -36,5 +37,30 @@ body{
 }
 
 .dt-jumbotron{
-  color:white
+  color:white;
+  height: 175px;
 }
+
+.actionDescription{
+  color:white;
+}
+
+ul.movie-list{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 5px;
+  position: relative;
+}
+
+ul.movie-list li.movie{
+  display: block;
+  padding: 20px;
+  width: 150px;
+  margin: 10px 0 0 1%;
+  flex-grow: 1; 
+}
+
+ul.movie-list li.movie img{  
+  max-height: 300px;
+}
+
