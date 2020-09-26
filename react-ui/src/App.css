@@ -1,5 +1,5 @@
-body{
-  background-color:#282c34;
+body {
+  background-color: #282c34;
   color: gray
 }
 
@@ -31,36 +31,45 @@ body{
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
-.dt-jumbotron{
-  color:white;
-  height: 175px;
+.dt-jumbotron {
+  color: white;
+  max-height: 320px;
+
+  padding: 2rem 2rem;
+
 }
 
-.actionDescription{
-  color:white;
+.actionDescription {
+  color: white;
 }
 
-ul.movie-list{
+ul.movie-list {
   display: flex;
   flex-wrap: wrap;
   padding: 5px;
   position: relative;
 }
 
-ul.movie-list li.movie{
+ul.movie-list li.movie {
   display: block;
   padding: 20px;
   width: 150px;
   margin: 10px 0 0 1%;
-  flex-grow: 1; 
+  flex-grow: 1;
 }
 
-ul.movie-list li.movie img{  
+ul.movie-list li.movie img {
   max-height: 300px;
+  min-height: 220px;
+  height: 240px;
 }
 
+ul.movie-list li.movie h3 {
+  color:white;
+}

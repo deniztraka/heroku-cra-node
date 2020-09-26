@@ -49,6 +49,20 @@ if (!isDev && cluster.isMaster) {
     }
   }
 
+  async function fetchFromTrailersApi(authToken, searchPhrase) {
+    try {
+      var apiUrl = apiHost + "/api/v1/trailers";
+      var res = await superagent.get(apiUrl)
+        .auth(authToken, { type: 'bearer' })
+        .type('application/json')
+        .query({ q: searchPhrase });
+        return res.body.records;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
   async function getAccesToken() {
     console.log("getting acces token");
     try {
@@ -70,12 +84,18 @@ if (!isDev && cluster.isMaster) {
     return res.body.access_token;
   }
 
-  // Answer API requests.
-  app.get('/api/movies', async function (req, res) {
-    console.log("hello from movies endpoint");
-    console.log(req);
+  // Answer movie endpoint requests.
+  app.get('/api/movies', async function (req, res) {  
     var authToken = await getAccesToken();
     var apiResponse = await fetchMoviesFromApi(authToken, req.query.q);
+    res.set('Content-Type', 'application/json');
+    res.send(apiResponse);
+  });
+
+  // Answer API requests.
+  app.get('/api/trailers', async function (req, res) {   
+    var authToken = await getAccesToken();
+    var apiResponse = await fetchFromTrailersApi(authToken, req.query.q);
     res.set('Content-Type', 'application/json');
     res.send(apiResponse);
   });
