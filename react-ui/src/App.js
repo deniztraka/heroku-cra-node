@@ -37,13 +37,7 @@ function App() {
         </Container>    
       </header>
 
-      <p className="actionDescription">
-        {movies ? '':'« '}
-          <strong>
-            {isFetching ? 'preparing a super duper movie list related with your search phrase' : ( movies ? '':'start searching now!')}
-          </strong>
-        {movies ? '':' »'}            
-      </p>
+     
       <Container bg="dark">  
         <Form> 
           <Nav className="justify-content-center" activeKey="/home">        
@@ -56,11 +50,12 @@ function App() {
           </Nav>
         </Form>             
       </Container>   
-      <br></br>   
+      <br></br>         
+      
       <Container bg="dark">  
         <div className="movies">          
-          <ul className="movie-list" key="moveieList">
-            {movies && movies.length > 0 && movies.map((movie) => {
+          <ul className="movie-list justify-content-center" key="moveieList">
+            {!isFetching && movies && movies.length > 0 && movies.map((movie) => {
               return (                
                   <li className="movie" key={movie.id.toString()}>
                     <Image src={movie.imageUrl ? movie.imageUrl : placeHolderImg} alt={movie.title} fluid />           
@@ -69,6 +64,14 @@ function App() {
                   </li>                
               );
             })}
+
+            <p className="actionDescription">
+              {movies ? '':'« '}
+                <strong>
+                  {isFetching ? 'preparing a super duper movie list related with your search phrase' : ( movies ? '':'start searching now!')}
+                </strong>
+              {movies ? '':' »'}            
+            </p>
         </ul>
         </div>
       </Container> 
