@@ -1,4 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import {Jumbotron, Nav, Container, Row, Col, Navbar, Form, FormControl} from 'react-bootstrap';
 import logo from './logo.svg';
 import './App.css';
 
@@ -30,37 +32,32 @@ function App() {
   }, [fetchData]);
 
   return (
+    
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        { process.env.NODE_ENV === 'production' ?
-            <p>
-              This is a production build from create-react-app.
-            </p>
-          : <p>
-              Edit <code>src/App.js</code> and save to reload.
-            </p>
-        }
-        <p>{'« '}<strong>
-          {isFetching
-            ? 'Fetching message from API'
-            : message}
-        </strong>{' »'}</p>
-        <p><a
-          className="App-link"
-          href="https://github.com/mars/heroku-cra-node"
-        >
-          React + Node deployment on Heroku
-        </a></p>
-        <p><a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a></p>
+      <header className="App-header">    
+        <Container bg="dark">   
+          <Jumbotron className="bg-transparent dt-jumbotron" fluid>
+            <Container>
+              <h1>Search for Movies, Trailers</h1>
+              <p>
+                You can search for movies in this page.<br></br> Than you can search for it's trailer videos by clicking on each film.
+              </p>
+            </Container>
+          </Jumbotron>     
+        </Container>    
       </header>
+      <Container bg="dark">  
+        <Form> 
+          <Nav className="justify-content-center" activeKey="/home">        
+            <Nav.Item>
+              <FormControl type="text" placeholder="type some cool movie name here" className=" mr-sm-4" />
+            </Nav.Item>
+            <Nav.Item>
+              <Button variant="secondary" type="submit">Search</Button>
+            </Nav.Item>
+          </Nav>
+        </Form>             
+      </Container>      
     </div>
   );
 
