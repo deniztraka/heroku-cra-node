@@ -49,7 +49,8 @@ body {
   color: white;
 }
 
-ul.movie-list {
+ul.movie-list,
+ul.trailer-list {
   display: flex;
   flex-wrap: wrap;
   padding: 5px;
@@ -64,6 +65,13 @@ ul.movie-list li.movie {
   flex-grow: 1;
 }
 
+ul.trailer-list li.trailer {
+  display: block;
+  padding: 20px;
+  flex-grow: 1;
+  margin-bottom: 20px;
+}
+
 ul.movie-list li.movie img {
   max-height: 300px;
   min-height: 220px;
@@ -71,5 +79,43 @@ ul.movie-list li.movie img {
 }
 
 ul.movie-list li.movie h3 {
-  color:white;
+  color: white;
+}
+
+.trailers-content .actionDescription {
+  color: gray;
+}
+
+.trailers-content-title {
+  color: black;
+}
+
+.trailers-content .trailers {
+  text-align: center;
+}
+
+ul.trailer-list li.trailer img {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.video-wrapper {
+  height: 100%;
+  width: 100%;
+  min-height: 500px;
+}
+
+.video-wrapper>div {
+  margin-bottom: 30px;
+}
+
+.zoom {
+  transition: transform .2s; /* Animation */
+  margin: 0 auto;
+}
+
+.zoom:hover {
+  transform: scale(1.25); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  cursor: pointer;
+  border: solid 3px black 
 }

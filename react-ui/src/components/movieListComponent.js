@@ -8,9 +8,13 @@ export default class MovieListComponent extends React.Component {
         super(props);
         this.state = {
             movies : [],
-            isFetching:false
+            isFetching:false,
+            message:'« start searching now! »'
         };
 
+        this.fetchingMessage = "« preparing a cool movie list related with the search phrase you entered »";
+        this.foundMessage = "« this is what I have for now »";
+        this.nothingFoundMessage = "« I couldn't find anything I'm sorry :( »";
         this.fetchMovies = this.fetchMovies.bind(this);
     }
 
@@ -18,48 +22,34 @@ export default class MovieListComponent extends React.Component {
         this.props.setMovies(this.fetchMovies);
     }
 
-    async fetchMovies(searchPhrase){     
-        console.log('some shit happened');   
-        this.setState({isFetching:true});
-        //fetching movies from api
+    async fetchMovies(searchPhrase){       
+        this.setState({movies:[]});
+        this.setState({message:this.fetchingMessage});
         var response = await request.get('/api/movies') 
         .query('q='+searchPhrase)
         .accept('application/json');
-
+        this.setState({message:!response.body || response.body.length == 0 ? this.nothingFoundMessage : this.foundMessage});
         this.setState({movies:response.body});
-        this.setState({isFetching:false});
     }
 
-        
-
     render() {
-
-      //console.log(this.state.movies);
       return (
-        <Container bg="dark">  
-           
-            <div className="movies">          
+        <Container bg="dark">             
+            <div className="movies">  
+                <p className="actionDescription">
+                    <strong>{this.state.message}   </strong>
+                </p>                
                 <ul className="movie-list justify-content-center" key="moveieList">
-                    {this.state.movies && this.state.movies.length > 0 && this.state.movies.map((movie) => {
+                    { this.state.movies && this.state.movies.length > 0 && !this.isFetching && this.state.movies.map((movie) => {
                     return (                
                         <li className="movie"  key={movie.id.toString()}>
                             <Movie data={movie}/>  
                         </li>                
                     );
-                    })}
-
-                    <p className="actionDescription">
-                    {this.state.movies ? '':'« '}
-                        <strong>
-                            {this.state.isFetching ? 'preparing a super duper movie list related with your search phrase' : ( this.state.movies.length > 0 ? '':'start searching now!')}
-                        </strong>
-                    {this.state.movies ? '':' »'}            
-                    </p>
+                    })}                    
                 </ul>
+                
             </div>
-            
-            
-     
         </Container> 
         );
     }

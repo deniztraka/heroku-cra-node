@@ -18,8 +18,6 @@ export default class SearchTrailersModalComponent extends React.Component {
     }
 
     async fetchTrailers(){     
-        console.log('some trailer shit happened');   
-        this.setState({isFetching:true});
         //fetching movies from api
         var response = await request.get('/api/trailers') 
         .query('q='+this.movie.title + ' ' + this.movie.year + ' Trailer')
@@ -35,13 +33,10 @@ export default class SearchTrailersModalComponent extends React.Component {
 
     openModal(){
         this.setState({showModal:true});
-        this.fetchTrailers();
+        this.setState({isFetching:true});
+        this.fetchTrailers();        
     }    
 
-    // closeModal(){
-    //     this.setState({showModal:false})
-    // }
-    
     render() {
       return (
            
@@ -51,28 +46,31 @@ export default class SearchTrailersModalComponent extends React.Component {
                 centered
                 >
                 <Modal.Header>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                    {this.movie.title + ' Trailers'}
+                    <Modal.Title className="trailers-content-title" id="contained-modal-title-vcenter">
+                        {this.movie.title + ' Trailers'}
                     </Modal.Title>
                     <Button variant="outline-dark" onClick={() => this.setState({showModal:false})}>X</Button>
                 </Modal.Header>
-                <Modal.Body>
-                <ul className="trailer-list justify-content-center" key="trailerList">
-                    {this.state.trailers && this.state.trailers.length > 0 && this.state.trailers.map((trailer) => {
-                        return (                
-                            <li className="trailer"  key={trailer.id.toString()}>
-                                <Trailer data={trailer}/>  
-                            </li>                
-                        );
-                        })}
-                </ul>
-                <p className="actionDescription">
-                    {this.state.trailers ? '':'« '}
-                        <strong>
-                            {this.state.isFetching ? 'preparing a super duper movie list related with your search phrase' : ( this.state.trailers.length > 0 ? this.state.trailers.length:'start searching now!')}
-                        </strong>
-                    {this.state.trailers ? '':' »'}  
-                    </p>
+                <Modal.Body className="trailers-content">
+                    <div className="trailers">       
+                        <ul className="trailer-list justify-content-center" key="trailerList">
+                            {this.state.trailers && this.state.trailers.length > 0 && this.state.trailers.map((trailer) => {
+                                return (                
+                                    <li className="trailer"  key={trailer.id.toString()}>
+                                        <Trailer data={trailer}/>  
+                                    </li>                
+                                );
+                                })}
+                        </ul>
+                    
+                        <p className="actionDescription">
+                            {this.state.trailers ? '':'« '}
+                                <strong>
+                                    {this.state.isFetching ? 'preparing a super duper movie list related with your search phrase' : ( this.state.trailers.length > 0 ? this.state.trailers.length:'start searching now!')}
+                                </strong>
+                            {this.state.trailers ? '':' »'}  
+                        </p>
+                    </div>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={() => this.setState({showModal:false})}>Close</Button>

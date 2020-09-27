@@ -13,13 +13,11 @@ export default class MovieComponent extends React.Component {
     }
     
     render() {
-      return (<div>          
-            <Image src={this.movie.imageUrl ? this.movie.imageUrl : placeHolderImg} alt={this.movie.title} fluid />           
+      return (<div>
+            <Image className="zoom" src={this.movie.imageUrl ? this.movie.imageUrl : placeHolderImg} alt={this.movie.title} onClick={() => this.openModal()} fluid />           
             <h3>{this.movie.title}</h3>   
             <p>{this.movie.year}</p>  
-
-            <Button variant="primary" onClick={() => this.openModal()}>DisplayModal</Button>
-            
+            {/* <Button onClick={() => this.openModal()} variant="dark" size="sm">Show Trailers</Button> */}
             <SearchTrailersModalComponent data={this.movie} openModal={openHandle => this.openModal = openHandle}/>
         </div>
         );

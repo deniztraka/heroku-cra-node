@@ -64,7 +64,6 @@ if (!isDev && cluster.isMaster) {
   }
 
   async function getAccesToken() {
-    console.log("getting acces token");
     try {
       var res = await superagent.post(process.env.ISSUER + '/v1/token')
         .auth(process.env.CLIENT_ID, process.env.CLIENT_SECRET)
@@ -77,10 +76,9 @@ if (!isDev && cluster.isMaster) {
           scope: process.env.SCOPE
         });
     } catch (error) {
-      //console.log(error);
+      console.log(error);
       return null;
-    }
-    console.log("access token is succesfully fetched");
+    }    
     return res.body.access_token;
   }
 
