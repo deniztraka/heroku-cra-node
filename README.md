@@ -21,7 +21,8 @@ Node.js express server is also responsible for making making calls to authorizat
 
 It is integrated with an api that is implemented in [movie-trailers-api](https://github.com/deniztraka/movie-trailers-api "movie-trailers-api") repository.
 
-
+##### Known issues
+Currently there is no security check on this app.
 
 ## Local Development
 
