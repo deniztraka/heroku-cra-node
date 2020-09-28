@@ -63,7 +63,7 @@ export default class SearchTrailersModalComponent extends React.Component {
                                 })}
                         </ul>
                     
-                        <p className="actionDescription">
+                        <p className={`actionDescription ${this.state.isFetching ? 'loading' : ''}`}>
                             {this.state.trailers ? '':'« '}
                                 <strong>
                                     {this.state.isFetching ? 'preparing a super duper movie list related with your search phrase' : ( this.state.trailers.length > 0 ? this.state.trailers.length:'start searching now!')}

@@ -12,7 +12,7 @@ export default class MovieListComponent extends React.Component {
             message:'« start searching now! »'
         };
 
-        this.fetchingMessage = "« preparing a cool movie list related with the search phrase you entered »";
+        this.fetchingMessage = "« preparing a cool movie list just for you »";
         this.foundMessage = "« this is what I have for now »";
         this.nothingFoundMessage = "« I couldn't find anything I'm sorry :( »";
         this.fetchMovies = this.fetchMovies.bind(this);
@@ -24,10 +24,12 @@ export default class MovieListComponent extends React.Component {
 
     async fetchMovies(searchPhrase){       
         this.setState({movies:[]});
+        this.setState({isFetching:true});
         this.setState({message:this.fetchingMessage});
         var response = await request.get('/api/movies') 
         .query('q='+searchPhrase)
         .accept('application/json');
+        this.setState({isFetching:false});
         this.setState({message:!response.body || response.body.length == 0 ? this.nothingFoundMessage : this.foundMessage});
         this.setState({movies:response.body});
     }
@@ -35,9 +37,10 @@ export default class MovieListComponent extends React.Component {
     render() {
       return (
         <Container bg="dark">             
-            <div className="movies">  
-                <p className="actionDescription">
-                    <strong>{this.state.message}   </strong>
+            <div className="movies"> 
+            
+                <p className={`actionDescription ${this.state.isFetching ? 'loading' : ''}`}>                    
+                    <strong>{this.state.message}</strong>
                 </p>                
                 <ul className="movie-list justify-content-center" key="moveieList">
                     { this.state.movies && this.state.movies.length > 0 && !this.isFetching && this.state.movies.map((movie) => {
