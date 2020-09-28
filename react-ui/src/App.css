@@ -129,10 +129,10 @@ ul.trailer-list li.trailer img {
 p.actionDescription.loading {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(90deg, #fff, #666666, #fff);
+  background: linear-gradient(90deg, #282c34, #fff,  #282c34);
   background-repeat: no-repeat;
   background-size: 80%;
-  animation: animate 1s linear infinite;
+  animation: animate 2s linear infinite;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: rgba(255, 255, 255, 0);
@@ -140,9 +140,30 @@ p.actionDescription.loading {
 
 @keyframes animate {
   0% {
-    background-position: -100%;
+    background-position: -250%;
   }
   100% {
-    background-position: 100%;
+    background-position: 250%;
+  }
+}
+
+.trailers-content .actionDescription.loading {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(90deg, #fff, #000,  #fff);
+  background-repeat: no-repeat;
+  background-size: 80%;
+  animation: animateTrailersloading 3s linear infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0);
+}
+
+@keyframes animateTrailersloading {
+  0% {
+    background-position: -500%;
+  }
+  100% {
+    background-position: 500%;
   }
 }
